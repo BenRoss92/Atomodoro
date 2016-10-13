@@ -19,6 +19,9 @@ module.exports = Pompomodoro =
   pompomodoroView: null
   modalPanel: null
   subscriptions: null
+  myTimer: null
+  myVar: null
+  startTime: null
 
   activate: (state) ->
     @pompomodoroView = new PompomodoroView(state.pompomodoroViewState)
@@ -43,8 +46,16 @@ module.exports = Pompomodoro =
     document.onkeypress = -> false
 
   work: ->
+    @startTime = new Date
     @modalPanel.hide()
     document.onkeypress = -> true
+    myVar = setInterval(@myTimer, 1000)
+
+
+  myTimer: ->
+    timeNow = new Date
+    duration = timeNow - @startTime
+    console.log new Date(duration)
 
   start: ->
     console.log "Pompomodoro has started!"
@@ -67,8 +78,6 @@ module.exports = Pompomodoro =
       ) , @breakLength
     ) , @workTime
     return "Session #{i} was run"
-
-
 
 
   #
